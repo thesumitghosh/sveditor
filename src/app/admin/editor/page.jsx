@@ -132,7 +132,7 @@ export default function codeEditor() {
   const iframeRef = useRef(null);
   const [openHistoryIndex, setOpenHistoryIndex] = useState(null);
 
-  const userId = session?.user?.id;
+  const userId = "guset";
 
   const languages = [
     "javascript",
@@ -151,7 +151,7 @@ export default function codeEditor() {
 
   /* ================= BACKEND EXECUTION ================= */
   const runBackendCode = async () => {
-    setLoading(true);
+    /* setLoading(true); */
     setOutput("Running...");
     try {
       const res = await fetch("https://serverapi.studyvarsity.com/api/code/run", {
