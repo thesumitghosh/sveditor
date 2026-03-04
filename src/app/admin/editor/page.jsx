@@ -176,12 +176,12 @@ export default function codeEditor() {
     let htmlContent = "";
 
     if (language === "html") {
-      htmlContent = DOMPurify.sanitize(code);
+      htmlContent = code;
     }
 
     if (language === "css") {
       htmlContent = `
-        <style>${DOMPurify.sanitize(code)}</style>
+        <style>${code}</style>
         <div class="preview">CSS Applied Preview</div>
       `;
     }
@@ -196,7 +196,7 @@ export default function codeEditor() {
             log.apply(console, args);
           }
           try {
-            ${DOMPurify.sanitize(code)}
+            ${code}
           } catch(err){
             parent.postMessage({type:'console', data: err.message}, '*');
           }
