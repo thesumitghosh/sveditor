@@ -175,6 +175,7 @@ export default function CodeEditor() {
                   backgroundColor: isDark ? "#0f172a" : "#f1f5f9",
                   color: isDark ? "#fff" : "#000",
                   padding: "10px",
+                  paddingLeft:"0px"
                 }}
               >
                 {/* HEADER */}
@@ -189,10 +190,9 @@ export default function CodeEditor() {
                     position: "fixed",
                     top: "55px",
                     zIndex: "999",
-                    height: "55px",
+                    height: "58px",
                     width: "99%",
                     padding: "10px",
-                    paddingLeft: "0px",
                   }}
                 >
                   <h1 className="desktopview" style={{ fontFamily: "cursive", fontWeight: "700", fontSize: "20px", alignContent: "center", padding: "0px" }}>Coding Ground</h1>
