@@ -199,7 +199,7 @@ export default function CodeEditor() {
                     padding:"10px"
                   }}
                 >
-                  <h1 style={{ fontFamily: "cursive", fontWeight: "700", fontSize: "16px", alignContent:"center" }}>Coding Ground</h1>
+                  <h1 style={{ fontFamily: "cursive", fontWeight: "700", fontSize: "14px", alignContent:"center", padding:"0px" }}>Coding Ground</h1>
 
                   <div style={{ display: "flex", gap: "15px", flexWrap: "wrap" }}>
                     <select
