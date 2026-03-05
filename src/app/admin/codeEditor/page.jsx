@@ -5,11 +5,6 @@ import Editor from "@monaco-editor/react";
 
 import _ from "lodash";
 
-
-
-
-
-
 export default function CodeEditor() {
   const [session, setSession] = useState("");
   const [language, setLanguage] = useState("javascript");
@@ -191,23 +186,25 @@ export default function CodeEditor() {
                     gap: "15px",
                     marginBottom: "10px",
                     backgroundColor: "#0f172a",
-                    position:"fixed",
-                    top:"55px",
-                    zIndex:"999",
-                    height:"55px",
-                    width:"98%",
-                    padding:"10px"
+                    position: "fixed",
+                    top: "55px",
+                    zIndex: "999",
+                    height: "55px",
+                    width: "99%",
+                    padding: "10px",
+                    paddingLeft: "0px",
                   }}
                 >
-                  <h1 style={{ fontFamily: "cursive", fontWeight: "700", fontSize: "14px", alignContent:"center", padding:"0px" }}>Coding Ground</h1>
+                  <h1 className="desktopview" style={{ fontFamily: "cursive", fontWeight: "700", fontSize: "20px", alignContent: "center", padding: "0px" }}>Coding Ground</h1>
 
-                  <div style={{ display: "flex", gap: "15px", flexWrap: "wrap" }}>
+                  <div style={{ display: "flex", gap: "15px", flexWrap: "wrap", justifyContent: "space-around" }}>
                     <select
                       value={language}
                       onChange={(e) => setLanguage(e.target.value)}
                       style={{
                         padding: "8px",
                         borderRadius: "6px",
+
                         border: "2px solid gray",
                         backgroundColor: isDark ? "#0f172a" : "#f1f5f9",
                         color: isDark ? "#fff" : "#000",
@@ -231,6 +228,18 @@ export default function CodeEditor() {
                       }}
                     >
                       Run
+                    </button>
+                    <button
+                      onClick={() => setCode("")}
+                      style={{
+                        padding: "8px 15px",
+                        backgroundColor: "red",
+                        border: "none",
+                        borderRadius: "6px",
+                        color: "#fff",
+                      }}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash-icon lucide-trash"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                     </button>
 
                     <button
@@ -265,7 +274,7 @@ export default function CodeEditor() {
                     flexDirection: "row",
                     gap: "10px",
                     flexWrap: "wrap",
-                    marginTop:"65px"
+                    marginTop: "65px"
                   }}
                 >
                   {/* EDITOR */}
