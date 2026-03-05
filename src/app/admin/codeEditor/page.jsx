@@ -8,116 +8,13 @@ import _ from "lodash";
 
 
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: "no",
+};
 
-function ConsoleLogViewer() {
-  const [logs, setLogs] = useState([]);
-  const logsRef = useRef([]);
-
-  // Helper to format console arguments like the browser console, but wrap strings in double quotes
-  function formatConsoleArg(arg) {
-    if (typeof arg === "string") return `\"${arg}\"`;
-    if (typeof arg === "undefined") return "undefined";
-    if (typeof arg === "function") return arg.toString();
-    if (Array.isArray(arg)) return `▸ (${arg.length}) ${JSON.stringify(arg)}`;
-    if (typeof arg === "object" && arg !== null) {
-      try {
-        return `▸ ${JSON.stringify(arg)}`;
-      } catch {
-        return "[object]";
-      }
-    }
-    return String(arg);
-  }
-
-  useEffect(() => {
-    // Listen for messages from iframe
-    function handleMessage(event) {
-      if (event.data && event.data.type && event.data.consoleType) {
-        logsRef.current = [...logsRef.current, { type: event.data.consoleType, msg: event.data.payload }];
-        setLogs([...logsRef.current]);
-      }
-    }
-    window.addEventListener("message", handleMessage);
-
-    // Save originals
-    const originalLog = window.console.log;
-    const originalError = window.console.error;
-    const originalWarn = window.console.warn;
-    const originalInfo = window.console.info;
-
-    window.console.log = (...args) => {
-      const formatted = args.map(formatConsoleArg).join(" ");
-      logsRef.current = [...logsRef.current, { type: "log", msg: formatted }];
-      setLogs([...logsRef.current]);
-      originalLog.apply(window.console, args);
-    };
-    window.console.error = (...args) => {
-      const formatted = args.map(formatConsoleArg).join(" ");
-      logsRef.current = [...logsRef.current, { type: "error", msg: formatted }];
-      setLogs([...logsRef.current]);
-      originalError.apply(window.console, args);
-    };
-    window.console.warn = (...args) => {
-      const formatted = args.map(formatConsoleArg).join(" ");
-      logsRef.current = [...logsRef.current, { type: "warn", msg: formatted }];
-      setLogs([...logsRef.current]);
-      originalWarn.apply(window.console, args);
-    };
-    window.console.info = (...args) => {
-      const formatted = args.map(formatConsoleArg).join(" ");
-      logsRef.current = [...logsRef.current, { type: "info", msg: formatted }];
-      setLogs([...logsRef.current]);
-      originalInfo.apply(window.console, args);
-    };
-
-    return () => {
-      window.console.log = originalLog;
-      window.console.error = originalError;
-      window.console.warn = originalWarn;
-      window.console.info = originalInfo;
-      window.removeEventListener("message", handleMessage);
-    };
-  }, []);
-
-  const handleClear = () => {
-    logsRef.current = [];
-    setLogs([]);
-  };
-
-  const getColor = (type) => {
-    if (type === "error") return "#ff4d4f";
-    if (type === "warn") return "#ffd700";
-    if (type === "info") return "#40a9ff";
-    return "#0f0";
-  };
-
-  return (
-    <div style={{
-      width: "100%",
-      height: "32vh",
-      background: "#222",
-      color: "#0f0",
-      fontFamily: "monospace",
-      fontSize: "16px",
-      overflowY: "auto",
-      padding: "8px",
-      boxSizing: "border-box",
-      marginTop: "20px",
-      border: "1px solid black",
-      borderRadius: "8px",
-    }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontWeight: "bold", marginBottom: "8px" }}>
-        <span>Console Output:</span>
-        <button onClick={handleClear} style={{ fontSize: "12px", padding: "2px 10px", borderRadius: "4px", background: "#444", color: "#fff", border: "none" }}>Clear</button>
-      </div>
-      {logs.map((log, idx) =>
-        log.msg.split(/\n/g).map((line, i) => (
-          <div key={idx + '-' + i} style={{ whiteSpace: "pre-wrap", color: getColor(log.type) }}>{line}</div>
-        ))
-      )}
-    </div>
-  );
-}
 
 
 export default function CodeEditor() {
@@ -247,7 +144,7 @@ export default function CodeEditor() {
   const isDark = theme === "dark";
 
 
- useEffect(() => {
+  useEffect(() => {
     // 1. Get all cookies and split them into an array
     const cookies = document.cookie.split(";");
 
@@ -256,7 +153,7 @@ export default function CodeEditor() {
       const eqPos = cookie.indexOf("=");
       // 2. Extract the cookie name
       const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim();
-      
+
       // 3. Delete by setting an expired date and matching the path
       // Setting path=/ is crucial as cookies are path-specific
       document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;`;
@@ -300,9 +197,16 @@ export default function CodeEditor() {
                     justifyContent: "space-between",
                     gap: "15px",
                     marginBottom: "10px",
+                    backgroundColor: "#0f172a",
+                    position:"fixed",
+                    top:"55px",
+                    zIndex:"999",
+                    height:"55px",
+                    width:"98%",
+                    padding:"10px"
                   }}
                 >
-                  <h1 style={{ fontFamily: "cursive", fontWeight: "700", fontSize: "20px" }}>Coding Ground</h1>
+                  <h1 style={{ fontFamily: "cursive", fontWeight: "700", fontSize: "16px", alignContent:"center" }}>Coding Ground</h1>
 
                   <div style={{ display: "flex", gap: "15px", flexWrap: "wrap" }}>
                     <select
@@ -349,7 +253,7 @@ export default function CodeEditor() {
                         border: "none",
                         borderRadius: "6px",
                         fontWeight: "700",
-                        width:"50px"
+                        width: "50px"
 
                       }}
                     >
@@ -368,6 +272,7 @@ export default function CodeEditor() {
                     flexDirection: "row",
                     gap: "10px",
                     flexWrap: "wrap",
+                    marginTop:"65px"
                   }}
                 >
                   {/* EDITOR */}
