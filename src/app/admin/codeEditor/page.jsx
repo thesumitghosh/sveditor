@@ -120,7 +120,7 @@ function ConsoleLogViewer() {
 }
 
 
-export default function codeEditor() {
+export default function CodeEditor() {
   const [session, setSession] = useState("");
   const [language, setLanguage] = useState("javascript");
   const [code, setCode] = useState("// Write your code here");
@@ -247,6 +247,22 @@ export default function codeEditor() {
   const isDark = theme === "dark";
 
 
+ useEffect(() => {
+    // 1. Get all cookies and split them into an array
+    const cookies = document.cookie.split(";");
+
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i];
+      const eqPos = cookie.indexOf("=");
+      // 2. Extract the cookie name
+      const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim();
+      
+      // 3. Delete by setting an expired date and matching the path
+      // Setting path=/ is crucial as cookies are path-specific
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;`;
+    }
+  }, []);
+
   return (
     <>
 
@@ -261,10 +277,10 @@ export default function codeEditor() {
           {/* Main Feed */}
 
 
-          <div className="flex-1 lg:min-w-[600px] border-x border-borderBlack">
+          <div className="flex-1 lg:min-w-[600px] ">
             <div style={{ height: "60px" }} />
 
-            <section className="d-flex justify-center text-center p-1 bg-gradient-to-b from-gray-50 to-white">
+            <section className="d-flex justify-center text-center bg-gradient-to-b from-gray-50 to-white">
 
 
 
@@ -333,13 +349,14 @@ export default function codeEditor() {
                         border: "none",
                         borderRadius: "6px",
                         fontWeight: "700",
+                        width:"50px"
 
                       }}
                     >
                       <span style={{ fontSize: "16px" }}>
-                        {theme === "dark" ? "🌞" : "🌙"}
+                        {theme === "dark" ? "☀" : "🌙"}
                       </span>
-                      {theme === "dark" ? " Light Mode" : " Dark Mode"}
+                      {/* {theme === "dark" ?"☀" : "🌙"} */}
                     </button>
                   </div>
                 </div>

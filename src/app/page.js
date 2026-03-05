@@ -1,10 +1,18 @@
 import Image from "next/image";
 import LoginPage from "./admin/login/page";
+import TopNav from "@/components/TopNav";
+import BottomNav from "@/components/BottomNav";
+import CodeEditor from "./admin/codeEditor/page";
+
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <LoginPage />
-    </div>
+    <>
+      <TopNav />
+      <div className="" style={{paddingTop:"60px"}}>
+        <CodeEditor />
+      </div>
+      <BottomNav />
+    </>
   );
 }

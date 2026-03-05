@@ -76,7 +76,7 @@ export default function TopNav({ onLogout }) {
         </div>
 
         {/* DROPDOWN */}
-        {open && (
+        {/* {open && (
           <div
             style={{
               position: "absolute",
@@ -110,7 +110,7 @@ export default function TopNav({ onLogout }) {
               Logout
             </button>
           </div>
-        )}
+        )} */}
       </div>
 
       {/* CLICK OUTSIDE TO CLOSE */}
